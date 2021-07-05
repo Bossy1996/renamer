@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# renamer/__init__.py
+# renamer/views.py
 
 """This module provides the renamer main window."""
 
