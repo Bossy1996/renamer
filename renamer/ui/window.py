@@ -97,7 +97,7 @@ class Ui_Window(object):
 
     def retranslateUi(self, Window):
         _translate = QtCore.QCoreApplication.translate
-        Window.setWindowTitle(_translate("Window", "RP Renamer"))
+        Window.setWindowTitle(_translate("Window", "Renamer"))
         self.label.setText(_translate("Window", "Last Source Directory:"))
         self.loadFilesButton.setText(_translate("Window", "&Load Files"))
         self.label_2.setText(_translate("Window", "Files to Rename"))
