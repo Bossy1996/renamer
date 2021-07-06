@@ -48,6 +48,13 @@ class Window(QWidget, Ui_Window):
     def _connectSignalsSlots(self):
         self.loadFilesButton.clicked.connect(self.loadFiles)
         self.renameFilesButton.clicked.connect(self.renameFiles)
+        self.prefixEdit.textChanged.connect(self._updateStateWhenReady)
+
+    def _updateStateWhenReady(self):
+        if self.prefixEdit.text():
+            self.renameFilesButton.setEnabled(True)
+        else:
+            self.renameFilesButton.setEnabled(False)
 
     def loadFiles(self):
         self.dstFileList.clear()
@@ -77,6 +84,11 @@ class Window(QWidget, Ui_Window):
 
     def renameFiles(self):
         self._runRenamerThread()
+        self._updateStateWhenRenaming()
+
+    def _updateStateWhenRenaming(self):
+        self.loadFilesButton.setEnabled(False)
+        self.renameFilesButton.setEnabled(False)
     
     def _runRenamerThread(self):
         prefix = self.prefixEdit.text()
