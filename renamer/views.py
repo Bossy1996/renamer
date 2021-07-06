@@ -9,6 +9,7 @@ from sys import prefix
 
 from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QFileDialog,QWidget
+from PyQt5.sip import T
 
 from .rename import Renamer
 from .ui.window import Ui_Window
@@ -34,6 +35,15 @@ class Window(QWidget, Ui_Window):
 
     def _setupUi(self):
         self.setupUi()
+        self._updateStateWhenNoFiles()
+
+    def _updateStateWhenNoFiles(self):
+        self._filesCount = len(self._files)
+        self.loadFilesButton.setEnabled(True)
+        self.loadFilesButton.setFocus(True)
+        self.renameFilesButton.setEnabled(False)
+        self.prefixEdit.clear()
+        self.prefixEdit.setEnabled(False)
 
     def _connectSignalsSlots(self):
         self.loadFilesButton.clicked.connect(self.loadFiles)
@@ -76,6 +86,7 @@ class Window(QWidget, Ui_Window):
         # Update State
         self._renamer.renamedFile.connect(self._updateStateWhenFileRenamed)
         self._renamer.progressed.connect(self._updateProgressBar)
+        self._renamer.finished.connect(self._updateStateWhenNoFiles)
         self._thread.started.connect(self._updateStateWhenFileRenamed)
         # Clean up
         self._renamer.finished.connect(self._thread.quit)
