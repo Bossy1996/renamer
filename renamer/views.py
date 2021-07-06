@@ -69,6 +69,11 @@ class Window(QWidget, Ui_Window):
                 self._files.append(Path(file))
                 self.srcFileList.addItem(file)
             self._filesCount = len(self._files)
+            self._updateStateWhenFilesLoaded()
+
+    def _updateStateWhenFilesLoaded(self):
+        self.prefixEdit.setEnabled(True)
+        self.prefixEdit.setFocus(True)
 
     def renameFiles(self):
         self._runRenamerThread()
